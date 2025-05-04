@@ -5,6 +5,12 @@ app_description = "Better Statements"
 app_email = "info@cecypo.tech"
 app_license = "agpl-3.0"
 
+
+process_soa_html = {
+    "General Ledger": ["customer_statements/templates/process_statement_of_accounts.html"],
+    "Accounts Receivable": ["customer_statements/templates/process_statement_of_accounts_accounts_receivable.html"],
+}
+
 # Apps
 # ------------------
 
