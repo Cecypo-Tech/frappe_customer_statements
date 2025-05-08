@@ -13,7 +13,7 @@ Our first open source app for ERPNext!
 ## Statement of Account
 ![Statement of Account](https://i.imgur.com/yYRWhFt.png)
 ## Accounts Receivable
-![Accounts Receivable](https://i.imgur.com/yYRWhFt.png)
+![Accounts Receivable](https://imgur.com/rtjLcmD.png)
 
 ## Installation
 
