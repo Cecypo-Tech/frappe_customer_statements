@@ -20,19 +20,17 @@
 		font-weight: 700;
 		background-color: white;
 	}
+
+	td {
+        font-size: 12px !important;
+    }
 </style>
 <div class="page-break">
-	<div style="margin: 20px; padding: 5px; background-color: #f1f1f1; border-radius: 5px;">
-		<div id="header-html" class="hidden-pdf">
-			{% if letter_head.content %}
-			<div class="letter-head text-center">{{ letter_head.content }}</div>
-			<hr style="height:2px;border-width:0;color:black;background-color:black;">
-			{% endif %}
-		</div>
-
+	<div style="margin: 20px; padding: 0px; background-color: #f1f1f1; border-radius: 5px;">
+		
 		<div style="margin-left:15px; margin-top:10px; float:left;">
 			<img src="{{ frappe.db.get_single_value('website Settings', 'app_logo') or '' }}" alt=""
-				style="height: 80px; float:left;" />
+			style="height: 80px; float:left; max-width: 200px;" />
 		</div>
 		<div style="margin-right:15px; margin-top:5px; text-align: right; float: right;">
 			<h1 style="font-weight: 900 !important;vertical-align: top;">{{ filters.company|upper }}</h1>
@@ -81,6 +79,7 @@
 							{% if row.etr_invoice_number %}
 							<br>{{ _(" ") }}: {{ row.etr_invoice_number }}
 							{% endif %}
+							
 						</td>
 						{% if filters.show_remarks %}
 						<td>
@@ -101,7 +100,11 @@
 						{% else %}
 						<td></td>
 						<td></td>
-						<td></td>
+						<td>
+							{% if not filters.show_remarks %}
+							<b>{{ frappe.format(row.account, {fieldtype: "Link"}) or "&nbsp;" }}</b></p>
+							{% endif %}
+						</td>
 						{% if filters.show_remarks %}
 						<td><b>{{ frappe.format(row.account, {fieldtype: "Link"}) or "&nbsp;" }}</b></td>
 						{% endif %}

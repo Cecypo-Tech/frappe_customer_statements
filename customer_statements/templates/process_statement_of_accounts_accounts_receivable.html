@@ -1,6 +1,5 @@
 <style>
     .print-format {
-        padding: 4mm;
         font-size: 8pt !important;
     }
 
@@ -29,38 +28,31 @@
         font-weight: 700;
         background-color: white;
     }
+    
+    td {
+        font-size: 10pt !important;
+    }
 </style>
-<div id="header-html" class="hidden-pdf">
-    {% if letter_head.content %}
-    <div class="letter-head text-center">{{ letter_head.content }}</div>
-    <hr style="height: 2px; border-width: 0; color: black; background-color: black;" />
-    {% endif %}
-</div>
-<div id="footer-html" class="visible-pdf">
-    {% if letter_head.footer %}
-    <div class="letter-head-footer">
-        <hr style="border-width: 0; color: black; background-color: black; padding-bottom: 2px;" />
-        {{ letter_head.footer }}
-    </div>
-    {% endif %}
-</div>
-<div style="margin: 20px; padding: 5px; background-color: #f1f1f1; border-radius: 5px;">
 
-    <div style="width: 50%; float: left;">
+<div style="margin: 0px; padding: 0px; background-color: #f1f1f1; border-radius: 5px;">
+    <div style="margin-left:15px; margin-top:10px; float:left;">
         <img src="{{ frappe.db.get_single_value('website Settings', 'app_logo') or '' }}" alt=""
-            style="height: 80px; float: left;" />
+            style="height: 80px; float:left; max-width: 200px;" />
     </div>
-    <div style="width: 50%; float: right; text-align: right; ">
+    <div style="margin-right:15px; margin-top:5px; text-align: right; float: right;">
         <h1 style="font-weight: 900 !important;vertical-align: top;">{{ filters.company|upper }}</h1>
+        <h5>
+            <p>For: <span class="clearbackground">{{ filters.customer_name }}</span></p>
+                <p>{% if (filters.tax_id) %} {{ _("Tax Id: ") }}{{ filters.tax_id }} {% endif %} {{
+                    _(filters.ageing_based_on) }} {{ _("Until") }} <span class="clearbackground">{{
+                        frappe.format(filters.report_date, 'Date') }}</span></p>
+        </h5>
     </div>
 
     <div class="clearfix">
         <span>
             <h5 style="float:right; text-align: right;">
-                <p>For: <span class="clearbackground">{{ filters.customer_name }}</span></p>
-                <p>{% if (filters.tax_id) %} {{ _("Tax Id: ") }}{{ filters.tax_id }} {% endif %} {{
-                    _(filters.ageing_based_on) }} {{ _("Until") }} <span class="clearbackground">{{
-                        frappe.format(filters.report_date, 'Date') }}</span></p>
+                
             </h5>
         </span>
     
@@ -80,7 +72,7 @@
     report.columns[start+2].label %} {% set range4 = report.columns[start+3].label %} {% set range5 =
     report.columns[start+4].label %}
     {% set range6 = report.columns[start+5].label %} {% if(balance_row) %}
-    <table class="table" style="font-size: 12px; padding: 0px; margin: 0px;">
+    <table class="table" style="padding: 0px; margin: 0px;">
         <caption class="text-right">
             (Amount in {{ data[0]["currency"] ~ "" }})
         </caption>
