@@ -1,4 +1,15 @@
 <style>
+	.print-format {
+        font-size: 8pt !important;
+        margin-top: 6mm !important;
+        margin-left: 8mm !important;
+        margin-right: 6mm !important;
+        margin-bottom: 6mm !important;
+    }
+
+    .print-format td {
+        vertical-align: middle !important;
+    }
 	.fade_rule {
 		height: 1px;
 		background-color: #E6E6E6;
@@ -22,12 +33,22 @@
 	}
 
 	td {
-        font-size: 12px !important;
+        font-size: 10pt !important;
+    }
+    tr {
+        height: 1.2em !important;
+        padding-top: 0.1em !important;
+        padding-bottom: 0.1em !important;
+    }
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
     }
 </style>
+<!-- GENERAL LEDGER -->
 <div class="page-break">
-	<div style="margin: 20px; padding: 0px; background-color: #f1f1f1; border-radius: 5px;">
-		
+	<div style="padding: 2px; background-color: #f1f1f1; border-radius: 5px;">
 		<div style="margin-left:15px; margin-top:10px; float:left;">
 			<img src="{{ frappe.db.get_single_value('website Settings', 'app_logo') or '' }}" alt=""
 			style="height: 80px; float:left; max-width: 200px;" />
@@ -51,16 +72,15 @@
 
 		<br>
 		<div style="clear: both;">
-			<h4
-				style="letter-spacing: 1px; text-transform: capitalize; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+			<h4 style="letter-spacing: 1px; text-transform: capitalize; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
 				STATEMENT OF ACCOUNT<div class="fade_rule"></div>
 			</h4>
 			<table class="table" style="font-size: 12px; padding: 0px; margin: 0px;">
 				<thead>
 					<tr>
-						<th style="width: 10%">{{ _("Date") }}</th>
-						<th style="width: 10%">{{ _("Doc") }}</th>
-						<th style="width: 15%">{{ _("Reference") }}</th>
+						<th style="width: 8%">{{ _("Date") }}</th>
+						<th style="width: 10%">{{ _("Type") }}</th>
+						<th style="width: 12%">{{ _("Reference") }}</th>
 						{% if filters.show_remarks %}
 						<th style="width: 30%;">{{ _("Remarks") }}</th>
 						{% endif %}
@@ -74,29 +94,37 @@
 					<tr>
 						{% if(row.posting_date) %}
 						<td>{{ frappe.format(row.posting_date, 'Date') }}</td>
+						{% if(row.voucher_type == "Sales Invoice") %}
+						<td>{{ row.voucher_subtype }}</td>
+						{% else %}
 						<td>{{ row.voucher_type }}</td>
-						<td>{{ row.voucher_no }}
-							{% if row.etr_invoice_number %}
-							<br>{{ _(" ") }}: {{ row.etr_invoice_number }}
-							{% endif %}
-							
-						</td>
+						{% endif %}
+						<td>{{ row.voucher_no }}</td>
 						{% if filters.show_remarks %}
-						<td>
+						<td style="font-size: 10px; line-height: 1em; padding-top: 1px; padding-bottom:1px;">
 							{% if not (filters.party or filters.account) %}
-							{{ row.party or row.account }}
-							<br>
+								{{ row.party or row.account }}
+								<br>
 							{% endif %}
 							{{ row.remarks|replace('No Remarks','') }}
+							{% if(row.voucher_subtype == "Credit Note") %}
+								{{ _("Against") }}: {{ row.against_voucher|replace('None','') }}
+							{% endif %}
 							{% if row.bill_no %}
-							<br>{{ _("Supplier Invoice No") }}: {{ row.bill_no }}
+								<br>{{ _("Supplier Invoice No") }}: {{ row.bill_no }}
+							{% endif %}
+							{% if(row.voucher_type == "Sales Invoice") %}    <!-- Only check if Sales Invoice + Returns - For Kenyan TIMS Integration -->
+								{% set cuin, cuurl = frappe.db.get_value('Sales Invoice', row.voucher_no, ['etr_invoice_number', 'cu_link']) %}
+								{% if cuin and cuurl %}
+								CUIN: <a href={{ cuurl }} target="_blank">{{ cuin }}</a>
+								{% endif %} 
 							{% endif %}
 						</td>
 						{% endif %}
 						<td style="text-align: right;">
-							{{ frappe.utils.fmt_money(row.debit, currency=filters.presentation_currency) }}</td>
+							{{ frappe.utils.fmt_money(row.debit) }}</td>
 						<td style="text-align: right;">
-							{{ frappe.utils.fmt_money(row.credit, currency=filters.presentation_currency) }}</td>
+							{{ frappe.utils.fmt_money(row.credit) }}</td>
 						{% else %}
 						<td></td>
 						<td></td>
@@ -109,17 +137,22 @@
 						<td><b>{{ frappe.format(row.account, {fieldtype: "Link"}) or "&nbsp;" }}</b></td>
 						{% endif %}
 						<td style="text-align: right;">
-							{{ row.get('account', '') and frappe.utils.fmt_money(row.debit,
-							currency=filters.presentation_currency) }}
+							{{ row.get('account', '') and frappe.utils.fmt_money(row.debit) }}
 						</td>
 						<td style="text-align: right;">
-							{{ row.get('account', '') and frappe.utils.fmt_money(row.credit,
-							currency=filters.presentation_currency) }}
+							{{ row.get('account', '') and frappe.utils.fmt_money(row.credit) }}
 						</td>
 						{% endif %}
+						{% if not loop.last %}
 						<td style="text-align: right;">
+							{{ frappe.utils.fmt_money(row.balance) }}
+						</td>
+						{% else %}
+						<td style="text-align: right; font-weight: bold;">
 							{{ frappe.utils.fmt_money(row.balance, currency=filters.presentation_currency) }}
 						</td>
+						{% endif %}
+						
 					</tr>
 					{% endfor %}
 				</tbody>
@@ -168,14 +201,13 @@
 		</div>
 		{% endif %}
 		<div style="width: 40%; float: right;">
-			<h4
-				style="letter-spacing: 1px; text-transform: capitalize; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
-				FUTURE PAYMENTS<div class="fade_rule"></div>
-			</h4>
 			{% set pdc = frappe.db.get_list('Payment Entry', filters={'reference_date': ['>',
 			frappe.utils.nowdate()],'party': ['=', filters.party[0]]},
 			fields=['posting_date', 'mode_of_payment', 'reference_date', 'paid_amount', 'status']) %}
 			{% if pdc %}
+			<h4 style="letter-spacing: 1px; text-transform: capitalize; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+				FUTURE PAYMENTS<div class="fade_rule"></div>
+			</h4>
 			<table class="" style="font-size: 11px; padding: 0px; margin: 0px; color: gray !important; width: 95%;">
 				<thead>
 					<tr>

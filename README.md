@@ -1,6 +1,6 @@
 # Customer Statements
 
-Our first open source app for ERPNext!
+Our first open source app for Frappe's ERPNext!
 
 # Better **Statements**
 - Prettier & more compact for both; **GENERAL LEDGER** & **ACCOUNTS RECEIVABLE**
@@ -9,7 +9,8 @@ Our first open source app for ERPNext!
 - Includes `Future Payments` in a compact list
 
 # Screenshots
-
+## What does this app effect?
+![Effect](https://i.imgur.com/b1YIDEy.png)
 ## Statement of Account
 ![Statement of Account](https://i.imgur.com/yYRWhFt.png)
 ## Accounts Receivable
@@ -19,7 +20,7 @@ Our first open source app for ERPNext!
 
 ```bash
 $ bench get-app https://github.com/Cecypo-Tech/frappe_customer_statements.git
-$ bench install-app customer_statements
+$ bench --site <site_name> install-app customer_statements
 ```
 
 #### License
