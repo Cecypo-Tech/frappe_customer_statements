@@ -11,10 +11,10 @@ Our first open source app for Frappe's ERPNext!
 # Screenshots
 ## What does this app effect?
 ![Effect](https://i.imgur.com/b1YIDEy.png)
-## Statement of Account
-![Statement of Account](https://i.imgur.com/yYRWhFt.png)
+## General Ledger
+![Statement of Account](https://i.imgur.com/2vEajDZ.png)
 ## Accounts Receivable
-![Accounts Receivable](https://imgur.com/rtjLcmD.png)
+![Accounts Receivable](https://i.imgur.com/uR4KSbZ.png)
 
 ## Installation
 
@@ -22,6 +22,9 @@ Our first open source app for Frappe's ERPNext!
 $ bench get-app https://github.com/Cecypo-Tech/frappe_customer_statements.git
 $ bench --site <site_name> install-app customer_statements
 ```
+
+#### Other
+If you are interested in our TIMS Integration (Kenya), see our (paid) direct integration tool here: https://docs.cecypo.tech/s/kb/doc/erpnext-O7U5xeE9DN
 
 #### License
 

@@ -172,7 +172,6 @@
             <div class="fade_rule"></div>
         </h4>
     </span>
-    
     <table class="table">
         <thead>
             <tr>
@@ -180,10 +179,12 @@
                 <th style="width: 8%;">{{ _("Date") }}</th>
                 <th style="width: 2%; text-align: left;">{{ _("Days") }}</th>
                 {% if(report.report_name == "Accounts Receivable" and filters.show_sales_person) %}
-                <th style="width: 14%;">{{ _("Reference") }}</th>
+                <th style="width: 8%;">{{ _("Type") }}</th>
+                <th style="width: 12%;">{{ _("Reference") }}</th>
                 <th style="width: 10%;">{{ _("Sales Person") }}</th>
                 {% else %}
-                <th style="width: 24%;">{{ _("Reference") }}</th>
+                <th style="width: 8%;">{{ _("Type") }}</th>
+                <th style="width: 12%;">{{ _("Reference") }}</th>
                 {% endif %} {% if not(filters.show_future_payments) %}
                 {% if filters.show_remarks %}
                 <th style="width: 20%;">
@@ -196,11 +197,10 @@
                 {% if not(filters.show_future_payments) %}
                 <th style="width: 8%; text-align: right;">{{ _("Paid Amount") }}</th>
                 <th style="width: 8%; text-align: right;">
-                    {% if report.report_name == "Accounts Receivable" %} {{ _('Credit Note') }} {% else %} {{ _('Debit
-                    Note') }} {% endif %}
+                    {% if report.report_name == "Accounts Receivable" %} {{ _('Credited Amount') }} {% else %} {{ _('Debited Amount') }} {% endif %}
                 </th>
                 {% endif %}
-                <th style="width: 8%; text-align: right;">{{ _("Outstanding Amount") }}</th>
+                <th style="width: 8%; text-align: right;">{{ _("Outstanding") }}</th>
                 {% if(filters.show_future_payments) %} {% if(report.report_name == "Accounts Receivable") %}
                 <th style="width: 8%;">{{ _("Customer LPO No.") }}</th>
                 {% endif %}
@@ -229,22 +229,19 @@
                 if(data[i]["party"]) %}
                 <td>{{ (data[i]["posting_date"]) }}</td>
                 <td style="text-align: left;">{{ data[i]["age"] }}</td>
-                <td>
-                    {% if not(filters.show_future_payments) %} {{ data[i]["voucher_type"] }}
-                    {% endif %} {{ data[i]["voucher_no"] }}
-                    {% if(data[i]["voucher_type"] == "Sales Invoice") %}    <!-- Only check if Sales Invoice + Returns - For Kenyan TIMS Integration -->
-                        {% set cuin = frappe.db.get_value('Sales Invoice', data[i]["voucher_no"], 'etr_invoice_number') %}
-                        {% if cuin %}
-                        {% if filters.show_remarks %} </br> {% endif %}
-                        <span style="padding-left: 2px; font-size: 10px; color: gray;">CUIN: {{ cuin }}</span>
-                        {% endif %} 
-                    {% endif %}
-                </td>
+                <td>{{ data[i]["voucher_type"] }}</td>
+                <td>{{ data[i]["voucher_no"] }}</td>
                 {% if(report.report_name == "Accounts Receivable" and filters.show_sales_person) %}
                 <td>{{ data[i]["sales_person"] }}</td>
                 {% endif %} {% if not (filters.show_future_payments) %}
                 {% if filters.show_remarks %}
                 <td>
+                    {% if(data[i]["voucher_type"] == "Sales Invoice") %}    <!-- Only check if Sales Invoice + Returns - For Kenyan TIMS Integration -->
+                        {% set cuin, cuurl = frappe.db.get_value('Sales Invoice', data[i]["voucher_no"], ['etr_invoice_number', 'cu_link']) %}
+                        {% if cuin and cuurl %}
+                        CUIN: <a href={{ cuurl }} target="_blank">{{ cuin }}</a>
+                        {% endif %} 
+                    {% endif %}
                     {% if(not(filters.customer or filters.supplier or filters.customer_name)) %} {{ data[i]["party"] }}
                     {% if(data[i]["customer_name"] and data[i]["customer_name"] != data[i]["party"]) %}
                     <br />
@@ -324,18 +321,15 @@
                 {% else %}
                 <td><b>{{ _("Total") }}</b></td>
                 {% endif %}
-                <td style="text-align: right;">{{ frappe.utils.fmt_money(data[i]["invoiced"],
-                    currency=data[i]["currency"]) }}</td>
-                <td style="text-align: right;">{{ frappe.utils.fmt_money(data[i]["paid"], currency=data[i]["currency"])
-                    }}</td>
-                <td style="text-align: right;">{{ frappe.utils.fmt_money(data[i]["credit_note"],
-                    currency=data[i]["currency"]) }}</td>
-                <td style="text-align: right;">{{ frappe.utils.fmt_money(data[i]["outstanding"],
-                    currency=data[i]["currency"]) }}</td>
+                <td style="text-align: right;">{{ frappe.utils.fmt_money(data[i]["invoiced"],currency=data[i]["currency"]) }}</td>
+                <td style="text-align: right;">{{ frappe.utils.fmt_money(data[i]["paid"], currency=data[i]["currency"]) }}</td>
+                <td style="text-align: right;">{{ frappe.utils.fmt_money(data[i]["credit_note"], currency=data[i]["currency"]) }}</td>
+                <td style="text-align: right;">{{ frappe.utils.fmt_money(data[i]["outstanding"], currency=data[i]["currency"]) }}</td>
                 {% endif %} {% endif %}
             </tr>
             {% endfor %}
             <!-- TABLE SUMMARY -->
+            <td></td>
             <td></td>
             <td></td>
             {% if filters.show_remarks %}<td></td>{% else %}<td style="text-align: right;">{{ data[0]["currency"] }}</td>{% endif %}
@@ -356,7 +350,7 @@
     <table class="table" style="font-size: 12px; padding: 0px; margin: 0px;">
         <thead>
             <tr>
-                <th style="width: 35%;">{{ _("Ageing") }}</th>
+                <th style="width: 35%;">{{ _("Aging") }}</th>
                 <th style="width: 13%;">0 - 30 Days</th>
                 <th style="width: 13%;">30 - 60 Days</th>
                 <th style="width: 13%;">60 - 90 Days</th>
