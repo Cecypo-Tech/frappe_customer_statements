@@ -48,7 +48,11 @@
 </style>
 <!-- GENERAL LEDGER -->
 <div class="page-break">
-	<div style="padding: 2px; background-color: #f1f1f1; border-radius: 5px;">
+	{% if letter_head.content %}
+		<div style="padding: 2px; border-radius: 5px;"></div>
+		{{ letter_head.content }}
+	{% else %}
+		<div style="padding: 2px; background-color: #f1f1f1; border-radius: 5px;">
 		<div style="margin-left:15px; margin-top:10px; float:left;">
 			<img src="{{ frappe.db.get_single_value('website Settings', 'app_logo') or '' }}" alt=""
 			style="height: 80px; float:left; max-width: 200px;" />
@@ -70,6 +74,10 @@
 			</h5>
 		</div>
 
+	{% endif %}
+
+	
+
 		<br>
 		<div style="clear: both;">
 			<h4 style="letter-spacing: 1px; text-transform: capitalize; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
@@ -79,8 +87,8 @@
 				<thead>
 					<tr>
 						<th style="width: 8%">{{ _("Date") }}</th>
-						<th style="width: 8%">{{ _("Type") }}</th>
-						<th style="width: 12%">{{ _("Reference") }}</th>
+						<th style="width: 10%">{{ _("Type") }}</th>
+						<th style="width: 14%">{{ _("Reference") }}</th>
 						{% if filters.show_remarks %}
 						<th style="width: 35%;">{{ _("Remarks") }}</th>
 						{% endif %}
@@ -241,4 +249,7 @@
 			{% endif %}
 		</div>
 	</div>
+	{% if letter_head.footer %}
+		{{ letter_head.footer }}
+	{% endif %}
 </div>

@@ -7,6 +7,7 @@ Our first open source app for Frappe's ERPNext!
 - `Show Remarks` shows/hides the whole column for better spacing
 - Better formatting for `terms & conditions`
 - Includes `Future Payments` in a compact list
+- Includes custom fields for Kenyan based TIMS (e-invoicing) integrations, but should not effect you, should you not use such
 
 # Screenshots
 ## What does this app effect?
@@ -15,7 +16,8 @@ Our first open source app for Frappe's ERPNext!
 ![Statement of Account](https://i.imgur.com/2vEajDZ.png)
 ## Accounts Receivable
 ![Accounts Receivable](https://i.imgur.com/uR4KSbZ.png)
-
+## Sample with letterhead set (for multi-company setups)
+![Letterhead](https://i.imgur.com/ZB5rrWE.png)
 ## Installation
 
 ```bash

@@ -49,21 +49,25 @@
     
 </style>
 <!-- ACCOUNTS RECEIVABLE -->
-<div class="clearfix" style="padding: 2px; background-color: #f1f1f1; border-radius: 5px;">
-    <div style="margin-left:15px; margin-top:10px; float:left;">
-        <img src="{{ frappe.db.get_single_value('website Settings', 'app_logo') or '' }}" alt=""
-            style="height: 80px; float:left; max-width: 200px;" />
-    </div>
-    <div style="margin-right:15px; margin-top:5px; text-align: right; float: right;">
-        <h1 style="font-weight: 900 !important;vertical-align: top;">{{ filters.company|upper }}</h1>
-        <h5>
-            <p>For: <span class="clearbackground">{{ filters.customer_name }}</span></p>
-                <p>{% if (filters.tax_id) %} {{ _("Tax Id: ") }}{{ filters.tax_id }} {% endif %} {{
-                    _(filters.ageing_based_on) }} {{ _("Until") }} <span class="clearbackground">{{
-                        frappe.format(filters.report_date, 'Date') }}</span></p>
-        </h5>
-    </div>
-
+    {% if letter_head.content %}
+    <div class="clearfix" style="padding: 2px; border-radius: 5px;">
+        {{ letter_head.content }}
+    {% else %}
+        <div class="clearfix" style="padding: 2px; background-color: #f1f1f1; border-radius: 5px;">
+        <div style="margin-left:15px; margin-top:10px; float:left;">
+            <img src="{{ frappe.db.get_single_value('website Settings', 'app_logo') or '' }}" alt=""
+                style="height: 80px; float:left; max-width: 200px;" />
+        </div>
+        <div style="margin-right:15px; margin-top:5px; text-align: right; float: right;">
+            <h1 style="font-weight: 900 !important;vertical-align: top;">{{ filters.company|upper }}</h1>
+            <h5>
+                <p>For: <span class="clearbackground">{{ filters.customer_name }}</span></p>
+                    <p>{% if (filters.tax_id) %} {{ _("Tax Id: ") }}{{ filters.tax_id }} {% endif %} {{
+                        _(filters.ageing_based_on) }} {{ _("Until") }} <span class="clearbackground">{{
+                            frappe.format(filters.report_date, 'Date') }}</span></p>
+            </h5>
+        </div>
+    {% endif %}
     <div class="clearfix">
         <span>
             <h5 style="float:right; text-align: right;">
@@ -73,11 +77,13 @@
     
         <div class="pull-left">
             {% if(filters.payment_terms) %}
-            <strong>{{ _("Payment Terms") }}:</strong> {{ filters.payment_terms }} {% endif %}
+                <strong>{{ _("Payment Terms") }}:</strong> {{ filters.payment_terms }} 
+            {% endif %}
         </div>
         <div class="pull-right">
             {% if(filters.credit_limit) %}
-            <strong>{{ _("Credit Limit") }}:</strong> {{ frappe.utils.fmt_money(filters.credit_limit) }} {% endif %}
+                <strong>{{ _("Credit Limit") }}:</strong> {{ frappe.utils.fmt_money(filters.credit_limit) }}
+            {% endif %}
         </div>
     </div>
     {% if(filters.show_future_payments) %} {% set balance_row = data.slice(-1).pop() %} {% for i in report.columns %} {%
@@ -413,4 +419,7 @@
         </table>
         {% endif %}
     </div>
+    {% if letter_head.footer %}
+		{{ letter_head.footer }}
+	{% endif %}
 </div>
