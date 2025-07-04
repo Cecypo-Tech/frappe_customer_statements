@@ -59,42 +59,42 @@
 		</div>
 		<div style="margin-right:15px; margin-top:5px; text-align: right; float: right;">
 			<h1 style="font-weight: 900 !important;vertical-align: top;">{{ filters.company|upper }}</h1>
-			<h5>
-				<p>For: <span class="clearbackground">{% if filters.party[0] == filters.party_name[0] %}
+		</div>
+	{% endif %}
+
+		<br>
+		<div style="clear: both;">
+			<div style="float: left;">
+				<h4 style="letter-spacing: 1px; text-transform: capitalize; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+					STATEMENT OF ACCOUNT<div class="fade_rule"></div>
+				</h4>	
+			</div>
+			<div style="float: right;">
+				<h5 style="letter-spacing: 1px; text-transform: capitalize; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+					For: {% if filters.party[0] == filters.party_name[0] %}
 					<b>{{ filters.party_name[0] }}</b>
 					{% else %}
 					{{ _("Customer: ") }} <b>{{ filters.party[0] }}</b>
 					{{ _("Customer Name: ") }} <b>{{filters.party_name[0] }}</b>
-					{% endif %}</span></p>
-				
-					<p>{{ _("Date: ") }}
-					<span class="clearbackground">
-						{{ frappe.format(filters.from_date, 'Date')}} {{ _("to") }} {{ frappe.format(filters.to_date, 'Date')}}
-					</span></p>
-			</h5>
-		</div>
-
-	{% endif %}
-
-	
-
-		<br>
-		<div style="clear: both;">
-			<h4 style="letter-spacing: 1px; text-transform: capitalize; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
-				STATEMENT OF ACCOUNT<div class="fade_rule"></div>
-			</h4>
+					{% endif %}
+					| {{ _("From: ") }}
+					{{ frappe.format(filters.from_date, 'Date')}} {{ _("to") }} {{ frappe.format(filters.to_date, 'Date')}}
+					<div class="fade_rule"></div>
+				</h5>
+			</div>
+			
 			<table class="table" style="font-size: 12px; padding: 0px; margin: 0px;">
 				<thead>
 					<tr>
-						<th style="width: 8%">{{ _("Date") }}</th>
+						<th style="width: 10%">{{ _("Date") }}</th>
 						<th style="width: 10%">{{ _("Type") }}</th>
-						<th style="width: 14%">{{ _("Reference") }}</th>
+						<th style="width: 12%">{{ _("Reference") }}</th>
 						{% if filters.show_remarks %}
-						<th style="width: 35%;">{{ _("Remarks") }}</th>
+						<th style="width: 33%;">{{ _("Remarks") }}</th>
 						{% endif %}
-						<th style="width: 12%; text-align: right;">{{ _("Debit") }}</th>
-						<th style="width: 12%; text-align: right;">{{ _("Credit") }}</th>
-						<th style="width: 12%; text-align: right;">{{ _("Balance") }}</th>
+						<th style="width: 10%; text-align: right;">{{ _("Debit") }}</th>
+						<th style="width: 10%; text-align: right;">{{ _("Credit") }}</th>
+						<th style="width: 15%; text-align: right;">{{ _("Balance") }}</th>
 					</tr>
 				</thead>
 				<tbody>

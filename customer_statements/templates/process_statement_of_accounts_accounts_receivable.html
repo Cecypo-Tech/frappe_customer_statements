@@ -60,12 +60,6 @@
         </div>
         <div style="margin-right:15px; margin-top:5px; text-align: right; float: right;">
             <h1 style="font-weight: 900 !important;vertical-align: top;">{{ filters.company|upper }}</h1>
-            <h5>
-                <p>For: <span class="clearbackground">{{ filters.customer_name }}</span></p>
-                    <p>{% if (filters.tax_id) %} {{ _("Tax Id: ") }}{{ filters.tax_id }} {% endif %} {{
-                        _(filters.ageing_based_on) }} {{ _("Until") }} <span class="clearbackground">{{
-                            frappe.format(filters.report_date, 'Date') }}</span></p>
-            </h5>
         </div>
     {% endif %}
     <div class="clearfix">
@@ -171,13 +165,21 @@
     </table>
     {% endif %} {% endif %}
 
-    <span style="float: left;">
-        <h4
-            style="letter-spacing: 1px; text-transform: capitalize; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">
-            {{ report.report_name|upper }}
-            <div class="fade_rule"></div>
-        </h4>
-    </span>
+    <div style="float: left;">
+        <h4 style="letter-spacing: 1px; text-transform: capitalize; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+            {{ report.report_name|upper }}<div class="fade_rule"></div>
+        </h4>	
+    </div>
+    <div style="float: right;">
+        <h5 style="letter-spacing: 1px; text-transform: capitalize; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+            For: {% if filters.party[0] == filters.party_name[0] %}
+                <b>{{ filters.party_name[0] }}</b>
+            {% else %}
+                {{ _("Customer: ") }} <b>{{ filters.party[0] }}</b>
+            {% endif %}
+            | {{ _(filters.ageing_based_on) }} {{ _("Until") }} <span class="clearbackground">{{frappe.format(filters.report_date, 'Date') }}</span></p>
+        </h5>
+    </div>
     <table class="table">
         <thead>
             <tr>
