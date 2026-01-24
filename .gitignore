@@ -5,3 +5,9 @@
 tags
 node_modules
 __pycache__
+
+# Claude Code files
+.claude/
+.claude_history
+claude_*.tmp
+.claude_cache/
