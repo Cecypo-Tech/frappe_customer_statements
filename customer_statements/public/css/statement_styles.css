@@ -1,0 +1,156 @@
+/* Print format settings */
+.print-format {
+	font-size: 8pt !important;
+	margin-top: 6mm !important;
+	margin-left: 8mm !important;
+	margin-right: 6mm !important;
+	margin-bottom: 6mm !important;
+}
+
+.print-format td {
+	vertical-align: middle !important;
+}
+
+/* Header section */
+.customer-info {
+	font-size: 11pt;
+	line-height: 1.6;
+	margin-bottom: 10px;
+}
+
+.customer-info .customer-name {
+	font-weight: 700;
+	font-size: 12pt;
+}
+
+.customer-info .date-range {
+	color: #555;
+	font-size: 10pt;
+	margin-top: 4px;
+}
+
+/* Modern heading style with left accent */
+.section-heading {
+	letter-spacing: 0.3px;
+	text-transform: capitalize;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	padding-left: 12px;
+	border-left: 4px solid #2490ef;
+	margin-bottom: 12px;
+	line-height: 1.3;
+}
+
+/* Centered section heading variant */
+.section-heading-center {
+	letter-spacing: 0.3px;
+	text-transform: capitalize;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	text-align: center;
+	padding-left: 12px;
+	border-left: 4px solid #2490ef;
+	margin-bottom: 8px;
+	line-height: 1.3;
+	display: inline-block;
+}
+
+/* Utility classes */
+.clearbackground {
+	margin: 0 auto;
+	padding: 1px;
+	border: 1px solid #9b9b9b;
+	font-weight: 700;
+	background-color: white;
+}
+
+.clearfix::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+/* Main data table */
+.table2 {
+	table-layout: fixed;
+	width: 100%;
+	margin: 0 auto;
+	border-collapse: collapse;
+	font-size: 10pt;
+}
+
+.table2 th {
+	font-size: 14px;
+}
+
+.table2 th,
+.table2 td {
+	text-align: left;
+	padding: 3px 4px;
+	border-bottom: 1px solid #dcdcdc;
+	vertical-align: middle;
+}
+
+.table2 tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+/* Bottom section container */
+.bottom-section {
+	margin-top: 20px;
+	page-break-inside: avoid;
+	overflow: hidden;
+}
+
+.bottom-section::after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+/* Aging summary */
+.aging-container {
+	float: left;
+	width: 63%;
+	padding-right: 10px;
+}
+
+/* Future payments */
+.future-payments-container {
+	float: right;
+	width: 35%;
+	padding-left: 10px;
+}
+
+/* Terms and conditions */
+.terms-container {
+	flex: 1 1 45%;
+}
+
+/* Tables in bottom section */
+.aging-table,
+.future-payments-table {
+	font-size: 11px;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.aging-table th,
+.aging-table td,
+.future-payments-table th,
+.future-payments-table td {
+	padding: 3px 4px;
+	border-bottom: 1px solid #dcdcdc;
+}
+
+.future-payments-table {
+	color: #666;
+}
+
+.future-payments-table th {
+	color: #666;
+	font-weight: 600;
+}
+
+.future-payments-table td {
+	color: #666;
+	vertical-align: top;
+}
