@@ -1,15 +1,37 @@
 <style>
-/* Embedded styles for FrappeCloud PDF rendering compatibility */
+@page {
+	margin: 10mm !important;
+	padding: 0 !important;
+}
+
+/* Target Frappe's print wrapper elements */
+.print-format-gutter,
+.page-break,
+.print-format {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
 .print-format {
 	font-size: 8pt !important;
-	margin-top: 6mm !important;
-	margin-left: 8mm !important;
-	margin-right: 6mm !important;
-	margin-bottom: 6mm !important;
 }
 
 .print-format td {
 	vertical-align: middle !important;
+}
+
+/* Print-specific overrides */
+@media print {
+	body, html {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+	
+	.print-format,
+	.page-break {
+		margin: 0 !important;
+		padding: 0 !important;
+	}
 }
 
 /* Header section */
