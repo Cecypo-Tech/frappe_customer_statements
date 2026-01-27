@@ -2,6 +2,9 @@
 
 Our first open source app for Frappe's ERPNext!
 
+# UPDATES - Jan 2026
+- Fixed issue with some not being able to generate PDF's (caused by a customized field that we use ourselves)
+
 # Better **Statements**
 - Prettier & more compact for both; **GENERAL LEDGER** & **ACCOUNTS RECEIVABLE**
 - `Show Remarks` shows/hides the whole column for better spacing
@@ -13,9 +16,9 @@ Our first open source app for Frappe's ERPNext!
 ## What does this app effect?
 ![Effect](https://i.imgur.com/b1YIDEy.png)
 ## General Ledger
-![Statement of Account](https://i.imgur.com/2vEajDZ.png)
+![Statement of Account](https://i.imgur.com/MakMjKv.png)*(updated Jan 2026)*
 ## Accounts Receivable
-![Accounts Receivable](https://i.imgur.com/uR4KSbZ.png)
+![Accounts Receivable](https://i.imgur.com/GVnVwH8.png)*(updated Jan 2026)*
 ## Sample with letterhead set (for multi-company setups)
 ![Letterhead](https://i.imgur.com/ZB5rrWE.png)
 ## Installation
