@@ -483,7 +483,7 @@
                 {% if(data[i]["party"]) %}
                 <td>{{ (data[i]["posting_date"]) }}</td>
                 <td>{{ data[i]["age"] }}</td>
-                <td>{{ data[i]["voucher_type"] }}</td>
+                <td>{{ data[i]["voucher_type"]|replace('Payment Entry', 'Payment') }}</td>
                 <td>{{ data[i]["voucher_no"] }}</td>
                 {% if(report.report_name == "Accounts Receivable" and filters.show_sales_person) %}
                 <td>{{ data[i]["sales_person"] }}</td>
@@ -631,20 +631,20 @@
             <table class="future-payments-table">
                 <thead>
                     <tr>
-                        <th style="width: 25%;">{{ _("Mode") }}</th>
+                        <th style="width: 20%;">{{ _("Mode") }}</th>
+                        <th style="width: 20%;">{{ _("Ref Date") }}</th>
                         <th style="width: 30%;">{{ _("Reference No") }}</th>
-                        <th style="width: 25%;">{{ _("Ref Date") }}</th>
-                        <th style="width: 20%;" class="text-right">{{ _("Value") }}</th>
+                        <th style="width: 30%;" class="text-right">{{ _("Value") }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for row in pdc %}
                     <tr>
                         <td>{{ row.mode_of_payment }}</td>
+                        <td>{{ row.reference_date.strftime('%d-%m-%y') if row.reference_date else '' }}</td>
                         <td>{{ row.reference_no or '' }}</td>
-                        <td>{{ frappe.format(row.reference_date, 'Date') }}</td>
                         <td class="text-right">
-                            {{ frappe.utils.fmt_money(row.paid_amount, currency=filters.presentation_currency) }}
+                            {{ frappe.utils.fmt_money(row.paid_amount) }}
                         </td>
                     </tr>
                     {% endfor %}

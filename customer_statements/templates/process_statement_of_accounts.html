@@ -3,7 +3,18 @@
         margin: 12mm 10mm 10mm 5mm !important;
         padding: 0 !important;
     }
+    @page {
+        margin: 12mm 10mm 10mm 5mm !important;
+        padding: 0 !important;
+    }
 
+    /* Target Frappe's print wrapper elements */
+    .print-format-gutter,
+    .page-break,
+    .print-format {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
     /* Target Frappe's print wrapper elements */
     .print-format-gutter,
     .page-break,
@@ -98,7 +109,99 @@
     .statement-items-table td.text-right { text-align: right; }
     .statement-items-table td.text-center { text-align: center; }
     .statement-items-table tr:last-child td { border-bottom: none; }
+    .statement-container {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        font-size: 9pt;
+        color: #1a1a1a;
+        line-height: 1.4;
+    }
 
+    /* Header Section */
+    .statement-header {
+        border-bottom: 2px solid #00a0e0;
+        padding-bottom: 8px;
+        margin-bottom: 10px;
+    }
+    .statement-header table { width: 100%; }
+    .statement-title {
+        font-size: 16pt;
+        font-weight: 700;
+        color: #00a0e0;
+        text-align: right;
+        letter-spacing: -0.5px;
+        line-height: 1em;
+    }
+    .statement-subtitle {
+        font-size: 10pt;
+        color: #64748b;
+        text-align: right;
+        margin-top: 2px;
+    }
+
+    /* Info Sections */
+    .statement-info-section {
+        margin-bottom: 15px;
+    }
+    .statement-info-section table { width: 100%; }
+    .statement-info-section td { vertical-align: top; padding: 0 !important; }
+
+    .info-box {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 4px;
+        padding: 10px 12px;
+    }
+    .info-box-title {
+        font-size: 7pt;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #64748b;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
+    .info-box-content {
+        font-size: 9pt;
+        color: #1e293b;
+    }
+    .info-box-content strong {
+        font-weight: 600;
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    /* Statement Table */
+    .statement-items-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 15px;
+    }
+    .statement-items-table th {
+        background: #1e293b;
+        color: #fff;
+        font-size: 7pt;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-weight: 600;
+        padding: 8px 6px !important;
+        text-align: left;
+    }
+    .statement-items-table th.text-right { text-align: right; }
+    .statement-items-table th.text-center { text-align: center; }
+    .statement-items-table td {
+        padding: 8px 6px !important;
+        border-bottom: 1px solid #e2e8f0;
+        font-size: 8.5pt;
+    }
+    .statement-items-table td.text-right { text-align: right; }
+    .statement-items-table td.text-center { text-align: center; }
+    .statement-items-table tr:last-child td { border-bottom: none; }
+
+    /* Bottom section container */
+    .bottom-section {
+        margin-top: 20px;
+        page-break-inside: avoid;
+        overflow: hidden;
+    }
     /* Bottom section container */
     .bottom-section {
         margin-top: 20px;
@@ -111,7 +214,18 @@
         clear: both;
         display: table;
     }
+    .bottom-section::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
 
+    /* Aging summary */
+    .aging-container {
+        float: left;
+        width: 60%;
+        padding-right: 10px;
+    }
     /* Aging summary */
     .aging-container {
         float: left;
@@ -125,7 +239,24 @@
         width: 40%;
         padding-left: 2px;
     }
+    /* Future payments */
+    .future-payments-container {
+        float: right;
+        width: 40%;
+        padding-left: 2px;
+    }
 
+    /* Section headings */
+    .section-heading {
+        font-size: 10pt;
+        font-weight: 700;
+        color: #1e293b;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+        padding-bottom: 4px;
+        border-bottom: 2px solid #00a0e0;
+    }
     /* Section headings */
     .section-heading {
         font-size: 10pt;
@@ -145,7 +276,21 @@
         width: 100%;
         border-collapse: collapse;
     }
+    /* Tables in bottom section */
+    .aging-table,
+    .future-payments-table {
+        font-size: 8.5pt;
+        width: 100%;
+        border-collapse: collapse;
+    }
 
+    .aging-table th,
+    .aging-table td,
+    .future-payments-table th,
+    .future-payments-table td {
+        padding: 6px 6px !important;
+        border-bottom: 1px solid #e2e8f0;
+    }
     .aging-table th,
     .aging-table td,
     .future-payments-table th,
@@ -163,7 +308,55 @@
         text-transform: uppercase;
         letter-spacing: 0.5px;
     }
+    .aging-table th,
+    .future-payments-table th {
+        background: #f8fafc;
+        color: #475569;
+        font-weight: 600;
+        font-size: 7pt;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
 
+    .future-payments-table td {
+        color: #475569;
+        vertical-align: top;
+    }
+
+    /* Terms container */
+    .terms-container {
+        margin-top: 15px;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 4px;
+        padding: 8px 12px;
+        font-size: 8pt;
+        color: #475569;
+    }
+
+    .terms-container strong {
+        color: #1e293b;
+    }
+
+    /* Links */
+    a {
+        color: #00a0e0;
+        text-decoration: none;
+    }
+
+    /* Print-specific overrides */
+    @media print {
+        body, html {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .print-format,
+        .page-break {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+    }
     .future-payments-table td {
         color: #475569;
         vertical-align: top;
@@ -303,7 +496,7 @@
                 {% if(row.voucher_type == "Sales Invoice") %}
                 <td>{{ row.voucher_subtype }}</td>
                 {% else %}
-                <td>{{ row.voucher_type }}</td>
+                <td>{{ row.voucher_type|replace('Payment Entry', 'Payment') }}</td>
                 {% endif %}
                 <td>{{ row.voucher_no }}</td>
                 {% if filters.show_remarks %}
@@ -312,7 +505,20 @@
                     {{ row.party or row.account }}
                     <br>
                     {% endif %}
-                    {{ row.remarks|replace('No Remarks','')|truncate(40, True, '...') }}
+                    {% if(row.voucher_type == "Payment Entry") %}                                                                                                                                                                                              
+                    <!-- Custom formatting for Payment Entry -->                                                                                                                                                                                               
+                    {% set payment_entry = frappe.get_doc('Payment Entry', row.voucher_no) %}                                                                                                                                                                  
+                    {% if payment_entry.reference_no or payment_entry.reference_date %}                                                                                                                                                                        
+                        Ref: {{ payment_entry.reference_no or '' }}  Dated: {{ frappe.format(payment_entry.reference_date, 'Date') if payment_entry.reference_date else '' }}                                                                                      
+                    {% endif %}                                                                                                                                                                                                                                
+                        {% if payment_entry.references %}                                                                                                                                                                                                          
+                            {% for ref in payment_entry.references %}                                                                                                                                                                                                  
+                            <br>{{ frappe.utils.fmt_money(ref.allocated_amount) }} against {{ ref.reference_name }}                                                                                                                        
+                            {% endfor %}                                                                                                                                                                                                                               
+                        {% endif %}                                                                                                                                                                                                                                
+                    {% else %}
+                    {{ row.remarks|replace('No Remarks','') }}
+                    {% endif %}
                     {% if(row.voucher_subtype == "Credit Note") %}
                     {{ _("Against") }}: {{ row.against_voucher|replace('None','') }}
                     {% endif %}
@@ -389,6 +595,36 @@
             </table>
         </div>
         {% endif %}
+    <!-- Bottom Section -->
+    <div class="bottom-section">
+        {% if ageing %}
+        <div class="aging-container">
+            <h4 class="section-heading">Aging Summary</h4>
+            <table class="aging-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%">{{ _("Aging") }}</th>
+                        <th style="width: 15%">0 - 30</th>
+                        <th class="text-right" style="width: 15%">30 - 60</th>
+                        <th class="text-right" style="width: 15%">60 - 90</th>
+                        <th class="text-right" style="width: 15%">90 - 120</th>
+                        <th class="text-right" style="width: 15%">120+</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-left">{{ _("Based on ") }}{{ ageing.ageing_based_on }}
+                            {{ _("up to " ) }} {{ frappe.format(filters.to_date, 'Date')}}</td>
+                        <td class="text-right">{{ frappe.utils.fmt_money(ageing.range1, currency=filters.presentation_currency) }}</td>
+                        <td class="text-right">{{ frappe.utils.fmt_money(ageing.range2, currency=filters.presentation_currency) }}</td>
+                        <td class="text-right">{{ frappe.utils.fmt_money(ageing.range3, currency=filters.presentation_currency) }}</td>
+                        <td class="text-right">{{ frappe.utils.fmt_money(ageing.range4, currency=filters.presentation_currency) }}</td>
+                        <td class="text-right">{{ frappe.utils.fmt_money(ageing.range5, currency=filters.presentation_currency) }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
 
         {% set pdc = frappe.db.get_list('Payment Entry', filters={'reference_date': ['>',
         frappe.utils.nowdate()],'party': ['=', filters.party[0]]},
@@ -399,20 +635,20 @@
             <table class="future-payments-table">
                 <thead>
                     <tr>
-                        <th style="width: 25%;">{{ _("Mode") }}</th>
+                        <th style="width: 20%;">{{ _("Mode") }}</th>
+                        <th style="width: 20%;">{{ _("Ref Date") }}</th>
                         <th style="width: 30%;">{{ _("Reference No") }}</th>
-                        <th style="width: 25%;">{{ _("Ref Date") }}</th>
-                        <th style="width: 20%;" class="text-right">{{ _("Value") }}</th>
+                        <th style="width: 30%;" class="text-right">{{ _("Value") }}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for row in pdc %}
                     <tr>
                         <td>{{ row.mode_of_payment }}</td>
+                        <td>{{ row.reference_date.strftime('%d-%m-%y') if row.reference_date else '' }}</td>
                         <td>{{ row.reference_no or '' }}</td>
-                        <td>{{ frappe.format(row.reference_date, 'Date') }}</td>
                         <td class="text-right">
-                            {{ frappe.utils.fmt_money(row.paid_amount, currency=filters.presentation_currency) }}
+                            {{ frappe.utils.fmt_money(row.paid_amount) }}
                         </td>
                     </tr>
                     {% endfor %}
@@ -422,6 +658,20 @@
         {% endif %}
     </div>
 
+    <!-- Terms & Conditions -->
+    {% if terms_and_conditions %}
+    <div class="terms-container">
+        <strong>Terms & Conditions</strong>
+        <div style="margin-top: 5px;">{{ terms_and_conditions }}</div>
+    </div>
+    {% endif %}
+
+    <!-- Footer -->
+    {% if letter_head.footer %}
+    <div id="footer-html" class="visible-pdf" style="margin-top: 30px; border-top: 2px solid #1e293b; padding-top: 15px;">
+        {{ letter_head.footer }}
+    </div>
+    {% endif %}
     <!-- Terms & Conditions -->
     {% if terms_and_conditions %}
     <div class="terms-container">
